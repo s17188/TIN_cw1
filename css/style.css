@@ -109,7 +109,7 @@ div.forms input{
     margin-bottom: 15px;
 }
 
-div.forms input[type=text],div.forms select,div.forms input[type=password] {
+div.forms input[type=text],div.forms input[type=email],div.forms input[type=date],div.forms input[type=number],div.forms select,div.forms input[type=password] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -119,7 +119,7 @@ div.forms input[type=text],div.forms select,div.forms input[type=password] {
     box-sizing: border-box;
 }
 
-div.forms input[type=text]:focus,div.forms select:focus,div.forms input[type=password]:focus,div.forms textarea:focus,div.forms button:first-of-type:active {
+div.forms input[type=text]:focus,div.forms input[type=email]:focus,div.forms input[type=date]:focus,div.forms input[type=number]:focus,div.forms select:focus,div.forms input[type=password]:focus,div.forms textarea:focus,div.forms button:first-of-type:active {
     outline: transparent;
     box-shadow: 0 0 0 2pt rgb(133 50 248);
 }
