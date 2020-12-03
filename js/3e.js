@@ -40,14 +40,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById("formTemp").addEventListener('submit',(e)=>{
         e.preventDefault()
-        let temp = document.getElementById("temp").value
-        p1.arr_temp.push(temp)
-        document.getElementById("avgTempInfo").innerHTML = 'Srednia temperatura: ' + p1.avgTemp() + ' °C'
-        document.getElementById("tempTable").innerHTML += `
-        <tr>
-            <td>${new Date(Date.now()).toISOString()}</td>
-            <td>${temp + ' °C'}</td>
-        </tr>`
+        if(p1.arr_temp.length < 8){
+            let temp = document.getElementById("temp").value
+            p1.arr_temp.push(temp)
+            document.getElementById("avgTempInfo").innerHTML = 'Srednia temperatura: ' + p1.avgTemp() + ' °C'
+            document.getElementById("tempTable").innerHTML += `
+            <tr class="tempRow">
+                <td>${setDate()}</td>
+                <td>${temp + ' °C'} <img class="edit-icon" src='./img/edit.svg' onclick="editTemp(this)" /></td>
+            </tr>`
+        }else{
+            alert('W ciągu doby maksymalnie, może byc 8 wpisów dotyczących temperatury.')
+        }
     })
 
 });
+
+const setDate = () => {
+    let dateNow = new Date()
+    let arrLength = p1.arr_temp.length - 1
+    let hourParsed = arrLength == 0 ? "00:00" : arrLength > 3 ? arrLength*3 + ":00" : "0"+arrLength*3 + ":00"
+    return dateNow.getFullYear() + '-' + (dateNow.getMonth()+1) + '-' + dateNow.getDate() + ' ' + hourParsed
+}
+
+const editTemp = (event) => {
+    let modal = document.getElementById("modalTemp")
+    let editTempForm = document.getElementById("editTemp")
+    modal.classList.remove('hide')
+    editTempForm.addEventListener('submit',(e)=>{
+        e.preventDefault()
+        event.parentElement.innerHTML = event.parentElement.innerHTML.replace(/^[0-9]*/g,document.getElementById('tempNew').value)
+        modal.classList.add('hide')
+    })
+    editTempForm.addEventListener('reset',(e)=>{
+        e.preventDefault()
+        modal.classList.add('hide')
+    })
+}
