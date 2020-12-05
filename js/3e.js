@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById("tempTable").innerHTML += `
             <tr class="tempRow">
                 <td>${setDate()}</td>
-                <td>${temp + ' °C'} <img class="edit-icon" src='./img/edit.svg' onclick="editTemp(this)" /></td>
+                <td>${temp + ' °C'} <img class="edit-icon" id='${p1.arr_temp.length-1}' src='./img/edit.svg' onclick="editTemp(this)" /></td>
             </tr>`
         }else{
             alert('W ciągu doby maksymalnie, może byc 8 wpisów dotyczących temperatury.')
@@ -70,6 +70,8 @@ const editTemp = (event) => {
     editTempForm.addEventListener('submit',(e)=>{
         e.preventDefault()
         event.parentElement.innerHTML = event.parentElement.innerHTML.replace(/^[0-9]*/g,document.getElementById('tempNew').value)
+        p1.arr_temp[event.id] = document.getElementById('tempNew').value
+        document.getElementById("avgTempInfo").innerHTML = 'Srednia temperatura: ' + p1.avgTemp() + ' °C'
         modal.classList.add('hide')
     })
     editTempForm.addEventListener('reset',(e)=>{
